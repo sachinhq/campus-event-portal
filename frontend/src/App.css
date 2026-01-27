@@ -1,0 +1,159 @@
+/* FULL PAGE BACKGROUND FIX */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #fdfbfb, #e6ecf5);
+}
+/* FULL APP BACKGROUND */
+.app-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  padding-bottom: 80px;
+}
+
+/* TOP BAR */
+.topbar {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+/* FEED */
+.feed {
+  max-width: 480px;
+  margin: 30px auto;
+}
+
+/* POST CARD */
+.post {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* HEADER */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  font-weight: 600;
+  background: #fafafa;
+}
+
+.college {
+  color: #833ab4;
+}
+
+/* IMAGE */
+.image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: black;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ACTION BAR */
+.actions {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.actions span {
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+/* POST CONTENT */
+.post-body {
+  padding: 12px 15px;
+}
+
+.post-body h3 {
+  margin: 5px 0;
+}
+
+/* FLOATING ADD BUTTON */
+.fab {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fd1d1d, #fcb045);
+  color: white;
+  font-size: 32px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* COMMENT MODAL */
+.comment-box {
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+}
+
+.comment-box input {
+  width: 100%;
+  padding: 8px;
+}
+
+/* ROLE SELECTION SCREEN */
+.role-screen {
+  height: 100vh;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.role-screen h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.role-screen p {
+  margin-bottom: 20px;
+}
+
+.role-screen button {
+  width: 200px;
+  padding: 12px;
+  margin: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ROLE BADGE */
+.role-badge {
+  background: white;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
