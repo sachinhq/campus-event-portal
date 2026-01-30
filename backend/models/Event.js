@@ -4,7 +4,7 @@ const eventSchema = new mongoose.Schema({
   title: String,
   date: String,
   description: String,
-  image: String   // image path
+  image: String
 });
 
 module.exports = mongoose.model("Event", eventSchema, "Events");

@@ -1,37 +1,35 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
 const PORT = 3001;
+const app = express();
 
 console.log("SERVER FILE LOADED");
 
-const app = express();
-
+// MIDDLEWARE
 app.use(cors());
 app.use(express.json());
 
+// SERVE UPLOADED IMAGES
 app.use("/uploads", express.static("uploads"));
-app.use("/api/auth", require("./routes/auth"));
-
 
 // TEST ROUTE
-app.get('/test', (req, res) => {
+app.get("/test", (req, res) => {
   res.status(200).json({ ok: true });
 });
 
 // EVENTS ROUTE
-const eventRoutes = require('./routes/events');
-app.use('/api/events', eventRoutes);
+app.use("/api/events", require("./routes/events"));
 
-// DB
-mongoose.connect(process.env.MONGO_URI)
+// DATABASE CONNECTION
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .catch(err => console.log("DB Error:", err));
 
-  
-
-
+// START SERVER
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });

@@ -2,8 +2,12 @@ const express = require("express");
 const router = express.Router();
 const Event = require("../models/Event");
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
-// multer config
+/* ======================
+   MULTER CONFIG
+====================== */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -15,25 +19,65 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// GET all events
+/* ======================
+   GET ALL EVENTS
+====================== */
 router.get("/", async (req, res) => {
-  const events = await Event.find();
-  res.json(events);
+  try {
+    const events = await Event.find().sort({ _id: -1 });
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch events" });
+  }
 });
 
-// POST add event with image
+/* ======================
+   ADD EVENT
+====================== */
 router.post("/", upload.single("image"), async (req, res) => {
-  const { title, date, description } = req.body;
+  try {
+    const { title, description } = req.body;
 
-  const newEvent = new Event({
-    title,
-    date,
-    description,
-    image: req.file ? req.file.filename : ""
-  });
+    const newEvent = new Event({
+      title,
+      description,
+      image: req.file ? req.file.filename : "",
+      date: new Date().toLocaleDateString()
+    });
 
-  await newEvent.save();
-  res.json({ message: "Event added successfully" });
+    await newEvent.save();
+    res.json({ message: "Event added successfully" });
+
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add event" });
+  }
+});
+
+/* ======================
+   DELETE EVENT + IMAGE
+====================== */
+router.delete("/:id", async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    // 🧹 delete image file
+    if (event.image) {
+      const imagePath = path.join(__dirname, "..", "uploads", event.image);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
+
+    await Event.findByIdAndDelete(req.params.id);
+    res.json({ message: "Event deleted successfully" });
+
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete event" });
+  }
 });
 
 module.exports = router;
